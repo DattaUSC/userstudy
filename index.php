@@ -42,4 +42,18 @@ if ($_SESSION['facebook_access_token']) {
   $loginUrl = $helper->getLoginUrl('http://localhost:8888/marketing-api/', $permissions);
   echo '<a href="' . $loginUrl . '">Log in with Facebook</a>';
 } 
+
+// APPS API 
+// Add to header of your file
+use FacebookAds\Api;
+
+// Add after echo "You are logged in "
+
+// Initialize a new Session and instantiate an Api object
+Api::init(
+  '1079136575500300', // App ID
+  '4fb9d33041642dad732e350e6a72785d',
+  $_SESSION['facebook_access_token'] // Your user access token
+);
+ 
 ?>
