@@ -63,6 +63,16 @@ use FacebookAds\Object\AdUser;
 $me = new AdUser('me');
 $my_adaccount = $me->getAdAccounts()->current();
 
-print_r($my_adaccount->getData());
+// Print call
+/* PHP SDK v5.0.0 */
+/* make the API call */
+$request = new FacebookRequest(
+  $session,
+  'GET',
+  '...?fields={fieldname_of_type_ApplicationAppAdDebugInfo}'
+);
+$response = $request->execute();
+$graphObject = $response->getGraphObject();
+/* handle the result */
 
 ?>
