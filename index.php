@@ -53,7 +53,7 @@ use FacebookAds\Api;
 Api::init(
   '1079136575500300', // App ID
   '4fb9d33041642dad732e350e6a72785d',
-  $_SESSION['facebook_access_token'] // Your user access token
+  $_SESSION['CAAPVeBAZCMAwBAJ23epf60040JbGrMKpqmQ9mK3wJZBeaRNw477ZCTYZChx9POTdbNul16Wjr6o03qZAnDqWqZBMc80XVicGgslbt46pt7Um0URhAK69GrZAfwFGeRfHXmJt4FxQMS8GZCY6WOfwdGGReiOz5uEZANy6TVGqb4L7cxFfYtYTDVdCG0QSBtYIMXKdGeQBJBEDpxO97CfF932q4'] // Your user access token
 );
  
 ?>
