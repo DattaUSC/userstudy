@@ -56,4 +56,13 @@ Api::init(
   $_SESSION['CAAPVeBAZCMAwBAJ23epf60040JbGrMKpqmQ9mK3wJZBeaRNw477ZCTYZChx9POTdbNul16Wjr6o03qZAnDqWqZBMc80XVicGgslbt46pt7Um0URhAK69GrZAfwFGeRfHXmJt4FxQMS8GZCY6WOfwdGGReiOz5uEZANy6TVGqb4L7cxFfYtYTDVdCG0QSBtYIMXKdGeQBJBEDpxO97CfF932q4'] // Your user access token
 );
  
+ // Add to header of your file
+use FacebookAds\Object\AdUser;
+
+// Add after Api::init()
+$me = new AdUser('me');
+$my_adaccount = $me->getAdAccounts()->current();
+
+print_r($my_adaccount->getData());
+
 ?>
