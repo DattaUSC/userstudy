@@ -1,66 +1,65 @@
-<?php include_once("home.html"); 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Test</title>
+	<!-- Bootstrap -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200' rel='stylesheet' type='text/css'>	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/animate.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 
-require_once __DIR__ . '/vendor/autoload.php';
+	<!-- Script -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-custom.js"></script>
+</head>
+<body>
 
-use Facebook\Facebook;
-use Facebook\Exceptions\FacebookResponseException;
-use Facebook\Exceptions\FacebookSDKException;
+<?php
 
-// Init PHP Sessions
-session_start();
+include('connect.php')
 
-$fb = new Facebook([
-  'app_id' => '1079136575500300',
-  'app_secret' => '4fb9d33041642dad732e350e6a72785d',
-]);
+$sqlget = "SELECT * FROM people";
+$sqldata = mysqli_query($dbcon, $sqlget) or die('error');
 
-$helper = $fb->getRedirectLoginHelper();
+echo "<table">
+echo "<tr><th>ID</th><th>Name</th>"
 
-if (!isset($_SESSION['facebook_access_token'])) {
-  $_SESSION['facebook_access_token'] = null;
+while($row = mysqli_fetch_array(sqldata, MYSQLI_ASSOC)) {
+	echo "<tr><td>";
+	echo $row['UserID'];
+	echo "</td><td>";
+	echo $row['UserName'];
+	echo "</td></tr>";
 }
 
-if (!$_SESSION['facebook_access_token']) {
-  $helper = $fb->getRedirectLoginHelper();
-  try {
-    $_SESSION['facebook_access_token'] = (string) $helper->getAccessToken();
-  } catch(FacebookResponseException $e) {
-    // When Graph returns an error
-    echo 'Graph returned an error: ' . $e->getMessage();
-    exit;
-  } catch(FacebookSDKException $e) {
-    // When validation fails or other local issues
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-    exit;
-  }
-}
-
-if ($_SESSION['facebook_access_token']) {
-  echo "You are logged in!";
-} else {
-  $permissions = ['ads_management'];
-  $loginUrl = $helper->getLoginUrl('http://localhost:8888/marketing-api/', $permissions);
-  echo '<a href="' . $loginUrl . '">Log in with Facebook</a>';
-} 
-
-// APPS API 
-// Add to header of your file
-use FacebookAds\Api;
-
-// Add after echo "You are logged in "
-
-// Initialize a new Session and instantiate an Api object
-Api::init(
-  '1079136575500300', // App ID
-  '4fb9d33041642dad732e350e6a72785d',
-  $_SESSION['CAAPVeBAZCMAwBAJ23epf60040JbGrMKpqmQ9mK3wJZBeaRNw477ZCTYZChx9POTdbNul16Wjr6o03qZAnDqWqZBMc80XVicGgslbt46pt7Um0URhAK69GrZAfwFGeRfHXmJt4FxQMS8GZCY6WOfwdGGReiOz5uEZANy6TVGqb4L7cxFfYtYTDVdCG0QSBtYIMXKdGeQBJBEDpxO97CfF932q4'] // Your user access token
-);
- 
- // Add to header of your file
-use FacebookAds\Object\AdUser;
-
-// Add after Api::init()
-$me = new AdUser('me');
-$my_adaccount = $me->getAdAccounts()->current();
+echo "</table>";
 
 ?>
+
+<h4>POST</h4>
+<form action="welcome.php" method="post">
+Name: <input type="text" name="name"><br>
+E-mail: <input type="text" name="email"><br>
+<input type="submit">
+</form>
+
+<hr style="border:1px solid #999;">
+
+<h4>GET:</h4>
+<form action="welcome_get.php" method="get">
+Name: <input type="text" name="name"><br>
+E-mail: <input type="text" name="email"><br>
+<input type="submit">
+</form>
+
+</body>
+</html>
